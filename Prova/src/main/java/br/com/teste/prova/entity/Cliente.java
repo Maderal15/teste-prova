@@ -1,11 +1,23 @@
-package br.com.teste.prova.model;
+package br.com.teste.prova.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.annotations.ApiModelProperty;
 
+@Entity
+@Table(name = "cliente")
 public class Cliente {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
 	@ApiModelProperty(notes = "Nome.")
@@ -15,7 +27,8 @@ public class Cliente {
 	private String email;
 
 	@ApiModelProperty(notes = "Data de Nascimento.")
-	private LocalDateTime dataDeNascimento;
+	@JsonFormat(pattern="dd/MM/yyyy")
+	private LocalDate dataDeNascimento;
 
 	public Integer getId() {
 		return id;
@@ -41,11 +54,11 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public LocalDateTime getDataDeNascimento() {
+	public LocalDate getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(LocalDateTime dataDeNascimento) {
+	public void setDataDeNascimento(LocalDate dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 

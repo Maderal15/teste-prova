@@ -3,7 +3,7 @@ package br.com.teste.prova.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.teste.prova.model.Cliente;
+import br.com.teste.prova.entity.Cliente;
 import br.com.teste.prova.repository.ClienteRepository;
 
 @Service
