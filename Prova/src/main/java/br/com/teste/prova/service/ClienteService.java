@@ -25,4 +25,12 @@ public class ClienteService {
 
 	        return clienteRepository.save(cliente);
 	    }
+	    
+	    public Cliente findById(Integer id) {
+	    	Cliente cliente =  clienteRepository.findById(id);
+	    	
+
+	        return cliente;
+	    }
+
 }
