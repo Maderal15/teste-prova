@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +38,7 @@ public class ClienteController {
 	
     @ApiOperation(httpMethod = "POST", value = "Método post para salvar um cliene.")
     @ApiResponses(value = {
-    		@ApiResponse(code = 201, message = "Criado",  response = Cliente.class),
+    		@ApiResponse(code = 201, message = "Criado", response = Cliente.class)
     })
     @PostMapping
     public ResponseEntity save(@RequestBody @Valid Cliente cliente){
@@ -71,4 +72,15 @@ public class ClienteController {
 
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
+    
+    @ApiOperation(httpMethod = "DELETE", value = "Método delete que deleta um cliente filtrand por id.")
+    @ApiResponses(value = {
+    		@ApiResponse(code = 200, message = "")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity delete(@ApiParam(value = "Id", required = true) @PathVariable Integer id) {
+    	clienteService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
 }

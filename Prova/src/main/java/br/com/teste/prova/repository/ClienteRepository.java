@@ -28,4 +28,10 @@ public class ClienteRepository {
     	ClinteDAO dao = new ClinteDAO();
         return dao.saveOrUpdate(id, cliente);
     }
+    
+    public Cliente delete(Integer id){
+    	ClinteDAO dao = new ClinteDAO();
+        return dao.delete(id);
+    }
+
 }
