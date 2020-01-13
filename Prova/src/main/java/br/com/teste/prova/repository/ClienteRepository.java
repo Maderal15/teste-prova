@@ -23,4 +23,9 @@ public class ClienteRepository {
 	 	return dao.findById(id);
 
 	}
+	
+    public Cliente update(Integer id, Cliente cliente) {
+    	ClinteDAO dao = new ClinteDAO();
+        return dao.saveOrUpdate(id, cliente);
+    }
 }

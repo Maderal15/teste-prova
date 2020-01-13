@@ -1,6 +1,6 @@
 package br.com.teste.prova.entity;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,8 +27,8 @@ public class Cliente {
 	private String email;
 
 	@ApiModelProperty(notes = "Data de Nascimento.")
-	@JsonFormat(pattern="dd/MM/yyyy")
-	private LocalDate dataDeNascimento;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Calendar dataDeNascimento;
 
 	public Integer getId() {
 		return id;
@@ -54,11 +54,11 @@ public class Cliente {
 		this.email = email;
 	}
 
-	public LocalDate getDataDeNascimento() {
+	public Calendar getDataDeNascimento() {
 		return dataDeNascimento;
 	}
 
-	public void setDataDeNascimento(LocalDate dataDeNascimento) {
+	public void setDataDeNascimento(Calendar dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
 	}
 

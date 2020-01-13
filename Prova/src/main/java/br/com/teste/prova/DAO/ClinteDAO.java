@@ -43,4 +43,37 @@ public class ClinteDAO {
 
 		return cliente;
 	}
+
+	public Cliente saveOrUpdate(Integer id, Cliente cliente) {
+		Cliente clienteDAO = new Cliente();
+		
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	            transaction = session.beginTransaction();
+
+	            clienteDAO = session.get(Cliente.class, id);
+	            
+	            if(cliente.getDataDeNascimento() != null) {
+	            	clienteDAO.setDataDeNascimento(cliente.getDataDeNascimento());
+	            }
+	            
+	            if(cliente.getEmail() != null && !cliente.getEmail().equals("")) {
+	            	clienteDAO.setEmail(cliente.getEmail());
+	            }
+	            
+	            if(cliente.getNome() != null && !cliente.getNome().equals("")) {
+	            	clienteDAO.setNome(cliente.getNome());
+	            }
+	            
+	            
+	            session.saveOrUpdate(clienteDAO);
+	            transaction.commit();
+	            session.close();
+	        } catch (Exception e) {
+	            if (transaction != null) {
+	                transaction.rollback();
+	            }
+	            e.printStackTrace();
+	        }
+			return clienteDAO;
+	    }
 }

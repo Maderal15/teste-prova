@@ -32,5 +32,12 @@ public class ClienteService {
 
 	        return cliente;
 	    }
+	    
+	    public Cliente update(Integer id, Cliente cliente){
+	    	/* if(paymentDTO.getNumeroCartao() == null){
+	          	throw new UpdateException("Erro para atualizar");	
+	          }*/
 
+	        return clienteRepository.update(id, cliente);
+	    }
 }

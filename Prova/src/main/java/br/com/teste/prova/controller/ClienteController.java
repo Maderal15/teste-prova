@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -55,6 +56,18 @@ public class ClienteController {
     public ResponseEntity<Cliente> findById(@ApiParam(value = "Id", required = true)  @PathVariable(value="id", required = true) Integer id){
 
     	Cliente cliente = clienteService.findById(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    }
+    
+    @ApiOperation(httpMethod = "PUT", value = "Método put para atualizar um clinte filtrand por id.")
+    @ApiResponses(value = {
+    		@ApiResponse(code = 200, message = "Retorna um cliente",  response = Cliente.class),
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity update(@ApiParam(value = "Id", required = true) @PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
+
+    	cliente = clienteService.update(id,cliente);
 
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
