@@ -1,5 +1,7 @@
 package br.com.teste.prova.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +45,10 @@ public class ClienteService {
 	    
 	    public Cliente delete(Integer id){
 	        return clienteRepository.delete(id);
+	    }
+	    
+	    public List<Cliente> listCliente(Integer limite, Integer pagina) {
+	        return clienteRepository.listCliente(limite, pagina);
 	    }
 
 }

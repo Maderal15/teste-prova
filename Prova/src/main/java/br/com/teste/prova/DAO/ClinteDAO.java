@@ -1,5 +1,10 @@
 package br.com.teste.prova.DAO;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Query;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -97,4 +102,27 @@ public class ClinteDAO {
 		
 		return cliente;
 	}
+	
+	public List<Cliente> getCliente(Integer limite, Integer pagina) {
+		
+		List<Cliente> clientes = new ArrayList<Cliente>();
+		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+
+            String hql = " FROM Cliente";
+            Query query = session.createQuery(hql);
+            query.setFirstResult(pagina);
+            query.setMaxResults(limite);
+            clientes = query.getResultList();
+
+            transaction.commit();
+            session.close();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return clientes;
+    }
 }

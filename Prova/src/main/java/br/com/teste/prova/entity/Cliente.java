@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -29,6 +30,14 @@ public class Cliente {
 	@ApiModelProperty(notes = "Data de Nascimento.")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Calendar dataDeNascimento;
+
+	@ApiModelProperty(notes = "Limite.")
+	@Transient
+	private Integer limite;
+	
+	@ApiModelProperty(notes = "Pagina.")
+	@Transient
+	private Integer pagina;
 
 	public Integer getId() {
 		return id;
@@ -60,6 +69,22 @@ public class Cliente {
 
 	public void setDataDeNascimento(Calendar dataDeNascimento) {
 		this.dataDeNascimento = dataDeNascimento;
+	}
+
+	public Integer getLimite() {
+		return limite;
+	}
+
+	public void setLimite(Integer limite) {
+		this.limite = limite;
+	}
+
+	public Integer getPagina() {
+		return pagina;
+	}
+
+	public void setPagina(Integer pagina) {
+		this.pagina = pagina;
 	}
 
 }

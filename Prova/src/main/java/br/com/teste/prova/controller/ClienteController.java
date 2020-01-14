@@ -1,5 +1,7 @@
 package br.com.teste.prova.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +84,19 @@ public class ClienteController {
     	clienteService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
+    
+    @ApiOperation(httpMethod = "GET", value = "Listar Cliente.")
+    @ApiResponses(value = {
+    		@ApiResponse(code = 200, message = "Listar Cliente", response = Cliente.class),
+    })
+    @GetMapping("{limite}/{pagina}")
+    public ResponseEntity<List<Cliente>> listCliente(@ApiParam(value = "Limite", required = true)  @PathVariable(value="limite", required = true) Integer limite, 
+    		@ApiParam(value = "Pagina", required = true)  @PathVariable(value="pagina", required = true) Integer pagina){
+
+    	List<Cliente> cliente = clienteService.listCliente(limite, pagina);
+
+        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+    }
+    
 
 }
