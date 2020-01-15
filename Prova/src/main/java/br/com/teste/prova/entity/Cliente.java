@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,11 +31,13 @@ public class Cliente {
 	@ApiModelProperty(notes = "Data de Nascimento.")
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Calendar dataDeNascimento;
-
+	
+	@JsonIgnore
 	@ApiModelProperty(notes = "Limite.")
 	@Transient
 	private Integer limite;
 	
+	@JsonIgnore
 	@ApiModelProperty(notes = "Pagina.")
 	@Transient
 	private Integer pagina;

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.teste.prova.entity.Cliente;
+import br.com.teste.prova.exception.ClienteNotFoundException;
+import br.com.teste.prova.exception.UpdateException;
 import br.com.teste.prova.repository.ClienteRepository;
 
 @Service
@@ -21,9 +23,9 @@ public class ClienteService {
 	    
 	   
 	    public Cliente save(Cliente cliente){
-	    	 /*if(cliente.getNumeroCartao() == null){
-	         	throw new PaymentNotFoundException("Erro para cadastrar");	
-	         }*/
+	    	 if(cliente == null){
+	         	throw new ClienteNotFoundException("Erro para cadastrar");	
+	         }
 
 	        return clienteRepository.save(cliente);
 	    }
@@ -31,23 +33,39 @@ public class ClienteService {
 	    public Cliente findById(Integer id) {
 	    	Cliente cliente =  clienteRepository.findById(id);
 	    	
-
+	    	if(cliente == null) {
+	    		throw new ClienteNotFoundException("Id não encontrado");	
+	    	}
 	        return cliente;
 	    }
 	    
 	    public Cliente update(Integer id, Cliente cliente) {
-	    	/* if(paymentDTO.getNumeroCartao() == null){
-	          	throw new UpdateException("Erro para atualizar");	
-	          }*/
-
-	        return clienteRepository.update(id, cliente);
+	    	cliente = clienteRepository.update(id, cliente);
+	    	if(cliente == null) {
+	    		throw new ClienteNotFoundException("Id não encontrado");	
+	    	}
+	        return cliente;
 	    }
 	    
 	    public Cliente delete(Integer id){
-	        return clienteRepository.delete(id);
+	    	Cliente cliente = clienteRepository.delete(id);
+	     	
+	    	if(cliente == null) {
+	    		throw new ClienteNotFoundException("Id não encontrado");	
+	    	}
+	        return cliente;
 	    }
 	    
 	    public List<Cliente> listCliente(Integer limite, Integer pagina) {
+	    	if(limite == null) {
+	    		throw new ClienteNotFoundException("Limite obrigatório");
+	    		
+	    	}
+	    	
+	    	if(pagina == null) {
+	    		throw new ClienteNotFoundException("Página obrigatório");
+	    		
+	    	}
 	        return clienteRepository.listCliente(limite, pagina);
 	    }
 

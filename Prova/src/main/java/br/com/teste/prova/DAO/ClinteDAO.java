@@ -56,6 +56,10 @@ public class ClinteDAO {
 			transaction = session.beginTransaction();
 
 			clienteDAO = session.get(Cliente.class, id);
+			
+			if(clienteDAO == null) {
+				return null;
+			}
 
 			if (cliente.getDataDeNascimento() != null) {
 				clienteDAO.setDataDeNascimento(cliente.getDataDeNascimento());
@@ -69,7 +73,9 @@ public class ClinteDAO {
 				clienteDAO.setNome(cliente.getNome());
 			}
 
+			
 			session.saveOrUpdate(clienteDAO);
+			
 			transaction.commit();
 			session.close();
 		} catch (Exception e) {

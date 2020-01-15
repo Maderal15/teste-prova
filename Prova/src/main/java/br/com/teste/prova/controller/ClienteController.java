@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.teste.prova.entity.Cliente;
+import br.com.teste.prova.exception.ExceptionResponse;
 import br.com.teste.prova.service.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +41,8 @@ public class ClienteController {
 	
     @ApiOperation(httpMethod = "POST", value = "Método post para salvar um cliene.")
     @ApiResponses(value = {
-    		@ApiResponse(code = 201, message = "Criado", response = Cliente.class)
+    		@ApiResponse(code = 201, message = "Criado", response = Cliente.class),
+    		@ApiResponse(code = 404, message = "Erro para cadastrar.",  response = ExceptionResponse.class)
     })
     @PostMapping
     public ResponseEntity save(@RequestBody @Valid Cliente cliente){
@@ -54,6 +56,7 @@ public class ClienteController {
     @ApiOperation(httpMethod = "GET", value = "Detalhamento do cliente.")
     @ApiResponses(value = {
     		@ApiResponse(code = 200, message = "Detalhamento do cliente", response = Cliente.class),
+    		@ApiResponse(code = 404, message = "Id não encontrado", response = ExceptionResponse.class)
     })
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> findById(@ApiParam(value = "Id", required = true)  @PathVariable(value="id", required = true) Integer id){
@@ -66,6 +69,7 @@ public class ClienteController {
     @ApiOperation(httpMethod = "PUT", value = "Método put para atualizar um clinte filtrand por id.")
     @ApiResponses(value = {
     		@ApiResponse(code = 200, message = "Retorna um cliente",  response = Cliente.class),
+    		@ApiResponse(code = 404, message = "Id não encontrado", response = ExceptionResponse.class)
     })
     @PutMapping("/{id}")
     public ResponseEntity update(@ApiParam(value = "Id", required = true) @PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
@@ -77,7 +81,8 @@ public class ClienteController {
     
     @ApiOperation(httpMethod = "DELETE", value = "Método delete que deleta um cliente filtrand por id.")
     @ApiResponses(value = {
-    		@ApiResponse(code = 200, message = "")
+    		@ApiResponse(code = 200, message = ""),
+    		@ApiResponse(code = 404, message = "Id não encontrado", response = ExceptionResponse.class)
     })
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@ApiParam(value = "Id", required = true) @PathVariable Integer id) {
@@ -88,6 +93,8 @@ public class ClienteController {
     @ApiOperation(httpMethod = "GET", value = "Listar Cliente.")
     @ApiResponses(value = {
     		@ApiResponse(code = 200, message = "Listar Cliente", response = Cliente.class),
+    		@ApiResponse(code = 404, message = "Limite", response = ExceptionResponse.class),
+    		@ApiResponse(code = 404, message = "Pagina", response = ExceptionResponse.class)
     })
     @GetMapping("{limite}/{pagina}")
     public ResponseEntity<List<Cliente>> listCliente(@ApiParam(value = "Limite", required = true)  @PathVariable(value="limite", required = true) Integer limite, 
