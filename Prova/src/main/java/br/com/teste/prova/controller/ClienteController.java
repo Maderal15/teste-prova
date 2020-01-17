@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.teste.prova.entity.Cliente;
+import br.com.teste.prova.entity.ClienteTotal;
 import br.com.teste.prova.exception.ExceptionResponse;
 import br.com.teste.prova.service.ClienteService;
 import io.swagger.annotations.Api;
@@ -99,9 +100,9 @@ public class ClienteController {
     		@ApiResponse(code = 404, message = "Pagina", response = ExceptionResponse.class)
     })
     @GetMapping
-    public ResponseEntity<List<Cliente>> listCliente(@RequestParam("limite") Integer limite, @RequestParam("pagina") Integer pagina, Model map){
+    public ResponseEntity<ClienteTotal> listCliente(@RequestParam("limite") Integer limite, @RequestParam("pagina") Integer pagina, Model map){
 
-    	List<Cliente> cliente = clienteService.listCliente(limite, pagina);
+    	ClienteTotal cliente = clienteService.listCliente(limite, pagina);
 
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }

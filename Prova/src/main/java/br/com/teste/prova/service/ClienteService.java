@@ -1,13 +1,11 @@
 package br.com.teste.prova.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.teste.prova.entity.Cliente;
+import br.com.teste.prova.entity.ClienteTotal;
 import br.com.teste.prova.exception.ClienteNotFoundException;
-import br.com.teste.prova.exception.UpdateException;
 import br.com.teste.prova.repository.ClienteRepository;
 
 @Service
@@ -56,7 +54,7 @@ public class ClienteService {
 	        return cliente;
 	    }
 	    
-	    public List<Cliente> listCliente(Integer limite, Integer pagina) {
+	    public ClienteTotal listCliente(Integer limite, Integer pagina) {
 	    	if(limite == null) {
 	    		throw new ClienteNotFoundException("Limite obrigatório");
 	    		

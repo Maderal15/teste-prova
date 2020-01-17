@@ -1,11 +1,10 @@
 package br.com.teste.prova.repository;
 
-import java.util.List;
-
 import org.springframework.stereotype.Repository;
 
 import br.com.teste.prova.DAO.ClinteDAO;
 import br.com.teste.prova.entity.Cliente;
+import br.com.teste.prova.entity.ClienteTotal;
 
 @Repository
 public class ClienteRepository {
@@ -36,7 +35,7 @@ public class ClienteRepository {
         return dao.delete(id);
     }
 
-	public List<Cliente> listCliente(Integer limite, Integer pagina) {
+	public ClienteTotal listCliente(Integer limite, Integer pagina) {
 		ClinteDAO dao = new ClinteDAO();
 	 	return dao.getCliente(limite, pagina);
 

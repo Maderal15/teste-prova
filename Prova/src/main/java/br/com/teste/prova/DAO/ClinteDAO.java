@@ -3,12 +3,12 @@ package br.com.teste.prova.DAO;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import br.com.teste.prova.entity.Cliente;
+import br.com.teste.prova.entity.ClienteTotal;
 import br.com.teste.prova.util.HibernateUtil;
 
 public class ClinteDAO {
@@ -109,9 +109,10 @@ public class ClinteDAO {
 		return cliente;
 	}
 	
-	public List<Cliente> getCliente(Integer limite, Integer pagina) {
+	public ClienteTotal getCliente(Integer limite, Integer pagina) {
 		
 		List<Cliente> clientes = new ArrayList<Cliente>();
+		ClienteTotal clienteTotal = new ClienteTotal();
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
@@ -120,7 +121,13 @@ public class ClinteDAO {
             query.setFirstResult(pagina);
             query.setMaxResults(limite);
             clientes = query.getResultList();
-
+            clienteTotal.setClientes(clientes);  
+            
+            String hqlCount = " select count(*)  from Cliente";
+            Query queryCount = session.createQuery(hqlCount);
+            Long total = (Long) queryCount.uniqueResult();
+            clienteTotal.setTotal(total);
+            
             transaction.commit();
             session.close();
         } catch (Exception e) {
@@ -129,6 +136,6 @@ public class ClinteDAO {
             }
             e.printStackTrace();
         }
-        return clientes;
+        return clienteTotal;
     }
 }
